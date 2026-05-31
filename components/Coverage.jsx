@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import FallingText from './FallingText'
 const items = [
   'Semiconductor Components',
   'Silicon Wafers & Materials',
@@ -15,10 +16,11 @@ export default function Coverage() {
   return (
     <section id="coverage" style={{
       padding: '120px 0',
-      background: '#050505',
+      background: 'transparent',
       borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 2fr',
@@ -42,7 +44,7 @@ export default function Coverage() {
             <h2 style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(28px, 4vw, 48px)',
-              fontWeight: 300, lineHeight: 1.1,
+              fontWeight: 700, lineHeight: 1.1,
               color: '#fff', letterSpacing: '-0.01em',
             }}>
               Industry<br />coverage
@@ -70,9 +72,14 @@ export default function Coverage() {
                 fontSize: '12px', letterSpacing: '0.06em',
                 color: 'rgba(255,255,255,0.45)',
                 border: '1px solid rgba(255,255,255,0.1)',
-                padding: '10px 18px',
                 transition: 'border-color 0.25s ease, color 0.25s ease, background 0.25s ease',
                 cursor: 'default',
+                position: 'relative',
+                overflow: 'hidden',
+                minHeight: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)';
@@ -85,7 +92,19 @@ export default function Coverage() {
                 e.currentTarget.style.background = 'transparent';
               }}
               >
-                {item}
+                <div style={{ visibility: 'hidden', padding: '10px 18px' }}>{item}</div>
+                <div style={{ position: 'absolute', inset: 0 }}>
+                  <FallingText
+                    text={item}
+                    highlightWords={[]}
+                    trigger="hover"
+                    backgroundColor="transparent"
+                    wireframes={false}
+                    gravity={0.1}
+                    fontSize="inherit"
+                    mouseConstraintStiffness={0.9}
+                  />
+                </div>
               </motion.div>
             ))}
           </div>

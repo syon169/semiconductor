@@ -1,13 +1,16 @@
 'use client'
 import { motion } from 'framer-motion'
+import FallingText from './FallingText'
+import { GlowingShadow } from './ui/glowing-shadow'
 export default function About() {
   return (
     <section id="about" style={{
       padding: '120px 0',
-      background: '#000',
+      background: 'transparent',
       borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr',
@@ -31,7 +34,7 @@ export default function About() {
             <h2 style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(28px, 4vw, 48px)',
-              fontWeight: 300, lineHeight: 1.1,
+              fontWeight: 700, lineHeight: 1.1,
               color: '#fff', letterSpacing: '-0.01em',
               marginBottom: '24px',
             }}>
@@ -61,7 +64,7 @@ export default function About() {
           {/* Right — metrics */}
           <div style={{
             display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '1px', background: 'rgba(255,255,255,0.07)',
+            gap: '24px',
             alignSelf: 'start',
           }}>
             {[
@@ -75,24 +78,44 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
-                key={i} style={{
-                background: '#000',
-                padding: '28px 24px',
-                transition: 'background 0.3s ease',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = '#0a0a0a'}
-              onMouseLeave={e => e.currentTarget.style.background = '#000'}
+                key={i}
               >
-                <div style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.2)', marginBottom: '8px',
-                }}>{m.label}</div>
-                <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '18px', fontWeight: 400,
-                  color: '#fff',
-                }}>{m.value}</div>
+                <GlowingShadow>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <div style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase',
+                      color: 'rgba(255,255,255,0.2)', marginBottom: '8px',
+                    }}>{m.label}</div>
+                    <div style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '20px', fontWeight: 600, color: '#fff',
+                      lineHeight: 1.2,
+                      visibility: 'hidden'
+                    }}>{m.value}</div>
+                  </div>
+
+                  <FallingText
+                    text={m.value}
+                    highlightWords={[]}
+                    trigger="hover"
+                    backgroundColor="transparent"
+                    wireframes={false}
+                    gravity={0.1}
+                    fontSize="18px"
+                    mouseConstraintStiffness={0.9}
+                    textAlign="left"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    containerStyle={{
+                      paddingTop: '50px',
+                      paddingLeft: '24px',
+                      paddingRight: '24px',
+                      paddingBottom: '28px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </GlowingShadow>
               </motion.div>
             ))}
           </div>

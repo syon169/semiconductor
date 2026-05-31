@@ -3,13 +3,13 @@
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/css-components_DomeGallery_css.css",
+      "static/css/css-components_Aurora_css-components_DomeGallery_css-components_FallingText_css-components_Gl-a7f702.css",
       "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/css-app_globals_css.css",
+      "static/css/css-app_globals_css-node_modules_next_font_google_target_css-node_modules_next_font_google_ta-a7ec92.css",
       "static/chunks/app/layout.js"
     ]
   }

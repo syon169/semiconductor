@@ -1,5 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
+import { GlowCard } from './ui/spotlight-card'
+
 const props_list = [
   {
     title: 'Industry-Specific Network',
@@ -21,12 +23,13 @@ const props_list = [
 
 export default function WhySSG() {
   return (
-    <section style={{
+    <section id="why" style={{
       padding: '120px 0',
-      background: '#000',
+      background: 'transparent',
       borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
         <motion.div 
@@ -46,7 +49,7 @@ export default function WhySSG() {
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(28px, 4vw, 48px)',
-            fontWeight: 300, lineHeight: 1.1,
+            fontWeight: 700, lineHeight: 1.1,
             color: '#fff', letterSpacing: '-0.01em',
           }}>
             What makes the difference
@@ -56,7 +59,7 @@ export default function WhySSG() {
         {/* 2x2 grid */}
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '1px', background: 'rgba(255,255,255,0.07)',
+          gap: '20px',
         }}>
           {props_list.map((p, i) => (
             <motion.div 
@@ -64,28 +67,37 @@ export default function WhySSG() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              key={i} style={{
-              background: '#000',
-              padding: '40px 36px',
-              transition: 'background 0.3s ease',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = '#080808'}
-            onMouseLeave={e => e.currentTarget.style.background = '#000'}
+              key={i}
+              style={{ display: 'flex', height: '100%' }}
             >
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '22px', fontWeight: 400,
-                color: '#fff', marginBottom: '14px',
-              }}>{p.title}</h3>
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '14px', lineHeight: 1.8,
-                color: 'rgba(255,255,255,0.35)',
-              }}>{p.desc}</p>
+              <GlowCard
+                glowColor="white"
+                customSize={true}
+                className="w-full p-8 md:p-10 flex flex-col justify-between"
+              >
+                <div>
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '22px', fontWeight: 700,
+                    color: '#fff', marginBottom: '14px',
+                  }}>{p.title}</h3>
+                  <p style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px', lineHeight: 1.8,
+                    color: 'rgba(255,255,255,0.4)',
+                  }}>{p.desc}</p>
+                </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          #why-ssg-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   )
 }

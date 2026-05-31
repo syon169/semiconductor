@@ -171,21 +171,23 @@ main.sphere-main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: var(--image-filter, none);
 }
 
 .sphere-root .enlarge-closing img {
-  filter: var(--image-filter, none);
 }
 
 .edge-fade {
   position: absolute;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 160px;
   z-index: 5;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, var(--overlay-blur-color, #120F17));
+  background: linear-gradient(to bottom, transparent, var(--overlay-blur-color, #000000) 80%, var(--overlay-blur-color, #000000) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mask-image: linear-gradient(to bottom, transparent, black 80%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 80%);
 }
 
 .edge-fade--top {

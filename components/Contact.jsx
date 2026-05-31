@@ -1,13 +1,16 @@
 'use client'
 import { motion } from 'framer-motion'
+import GlitchText from './GlitchText'
+
 export default function Contact() {
   return (
     <section id="contact" style={{
       padding: '120px 0',
-      background: '#050505',
+      background: 'transparent',
       borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
         <motion.div 
@@ -30,7 +33,9 @@ export default function Contact() {
             fontWeight: 300, lineHeight: 1.0,
             color: '#fff', letterSpacing: '-0.02em',
           }}>
-            Start with a consultation.
+            <GlitchText speed={2.8} enableShadows={true} enableOnHover={true}>
+              Start with a consultation.
+            </GlitchText>
           </h2>
         </motion.div>
 

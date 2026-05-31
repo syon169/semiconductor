@@ -1,8 +1,10 @@
 'use client'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
+import MarqueeStrip from './MarqueeStrip'
 
-const Beams = dynamic(() => import('./Beams'), { ssr: false })
+const Hyperspeed = dynamic(() => import('./Hyperspeed'), { ssr: false })
+const ScrambledText = dynamic(() => import('./ScrambledText'), { ssr: false })
 
 export default function Hero() {
   return (
@@ -14,17 +16,46 @@ export default function Hero() {
       overflow: 'hidden',
       background: '#000',
     }}>
-      {/* Beams background */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.55 }}>
-        <Beams
-          beamWidth={1.8}
-          beamHeight={18}
-          beamNumber={10}
-          lightColor="#ffffff"
-          speed={1.4}
-          noiseIntensity={1.5}
-          scale={0.18}
-          rotation={0}
+      {/* Hyperspeed background */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <Hyperspeed
+          effectOptions={{
+            onSpeedUp: () => { },
+            onSlowDown: () => { },
+            distortion: 'turbulentDistortion',
+            length: 400,
+            roadWidth: 10,
+            islandWidth: 2,
+            lanesPerRoad: 4,
+            fov: 90,
+            fovSpeedUp: 150,
+            speedUp: 2,
+            carLightsFade: 0.4,
+            totalSideLightSticks: 20,
+            lightPairsPerRoadWay: 40,
+            shoulderLinesWidthPercentage: 0.05,
+            brokenLinesWidthPercentage: 0.1,
+            brokenLinesLengthPercentage: 0.5,
+            lightStickWidth: [0.12, 0.5],
+            lightStickHeight: [1.3, 1.7],
+            movingAwaySpeed: [60, 80],
+            movingCloserSpeed: [-120, -160],
+            carLightsLength: [400 * 0.03, 400 * 0.2],
+            carLightsRadius: [0.05, 0.14],
+            carWidthPercentage: [0.3, 0.5],
+            carShiftX: [-0.8, 0.8],
+            carFloorSeparation: [0, 5],
+            colors: {
+              roadColor: 0x080808,
+              islandColor: 0x0a0a0a,
+              background: 0x000000,
+              shoulderLines: 0xFFFFFF,
+              brokenLines: 0xFFFFFF,
+              leftCars: [0xffffff, 0xaaaaaa, 0xdddddd],
+              rightCars: [0xffffff, 0x888888, 0xbbbbbb],
+              sticks: 0xffffff,
+            }
+          }}
         />
       </div>
 
@@ -35,12 +66,22 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
+      {/* Marquee Strip at the top */}
+      <div style={{ position: 'absolute', top: '64px', left: 0, right: 0, zIndex: 3 }}>
+        <MarqueeStrip />
+      </div>
+
       {/* Content */}
       <div style={{
         position: 'relative', zIndex: 2,
         maxWidth: '1200px', margin: '0 auto',
-        padding: '100px 24px 40px',
+        padding: '0 24px',
+        marginTop: '15vh',
         width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        textAlign: 'center'
       }}>
         {/* Eyebrow */}
         <motion.div 
@@ -51,7 +92,7 @@ export default function Hero() {
           display: 'inline-flex', alignItems: 'center', gap: '12px',
           marginBottom: '24px',
         }}>
-          <div style={{ width: '24px', height: '1px', background: 'rgba(255,255,255,0.4)' }} />
+          <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.4)' }} />
           <span style={{
             fontFamily: 'var(--font-body)',
             fontSize: '11px', letterSpacing: '0.2em', textTransform: 'uppercase',
@@ -59,49 +100,34 @@ export default function Hero() {
           }}>
             Strategic Semiconductor Sourcing & B2B Matchmaking
           </span>
+          <div style={{ width: '32px', height: '1px', background: 'rgba(255,255,255,0.4)' }} />
         </motion.div>
 
         {/* Headline */}
-        <motion.h1 
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
-          style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(44px, 7vw, 96px)',
-          fontWeight: 300,
-          lineHeight: 1.0,
-          letterSpacing: '-0.02em',
-          color: '#fff',
-          maxWidth: '900px',
-          marginBottom: '24px',
-        }}>
-          Your bridge to the global semiconductor supply chain.
-        </motion.h1>
-
-        {/* Subtext */}
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
-          style={{
-          fontFamily: 'var(--font-body)',
-          fontSize: '16px', lineHeight: 1.75,
-          color: 'rgba(255,255,255,0.4)',
-          maxWidth: '560px',
-          marginBottom: '32px',
-        }}>
-          SSG connects qualified buyers, OEMs, and distributors with trusted manufacturers, 
-          materials suppliers, and global MNCs across the semiconductor value chain.
-        </motion.p>
+        >
+          <ScrambledText
+            radius={90}
+            duration={1.5}
+            speed={0.3}
+            scrambleChars=".:"
+          >
+            Sourcing silicon <br />
+            at the speed of <br />
+            innovation.
+          </ScrambledText>
+        </motion.div>
 
         {/* CTAs */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.9, delay: 0.3, ease: "easeOut" }}
           style={{
-          display: 'flex', gap: '16px', flexWrap: 'wrap',
+          display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center',
           marginBottom: '48px',
         }}>
           <a href="#contact" style={{
@@ -116,7 +142,7 @@ export default function Hero() {
           >
             Book a Consultation
           </a>
-          <a href="#services" style={{
+          <a href="/overview" style={{
             fontFamily: 'var(--font-body)',
             fontSize: '12px', letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'rgba(255,255,255,0.5)',
@@ -127,46 +153,8 @@ export default function Hero() {
           onMouseEnter={e => { e.target.style.borderColor = 'rgba(255,255,255,0.4)'; e.target.style.color = '#fff'; }}
           onMouseLeave={e => { e.target.style.borderColor = 'rgba(255,255,255,0.15)'; e.target.style.color = 'rgba(255,255,255,0.5)'; }}
           >
-            Explore Services
+            Explore Overview
           </a>
-        </motion.div>
-
-        {/* 3 stat cards */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.65, ease: "easeOut" }}
-          style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px', background: 'rgba(255,255,255,0.07)',
-          maxWidth: '740px',
-        }}>
-          {[
-            { title: 'B2B Matchmaking', desc: 'Buyer-to-supplier and OEM connection support' },
-            { title: 'Global Reach', desc: 'Asia, Europe & North America coverage' },
-            { title: 'Strategic Advisory', desc: 'Sourcing, qualification & relationship building' },
-          ].map((s, i) => (
-            <div key={i} style={{
-              background: 'rgba(0,0,0,0.6)',
-              padding: '24px 20px',
-              backdropFilter: 'blur(8px)',
-              transition: 'background 0.3s ease',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.6)'}
-            >
-              <div style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '17px', fontWeight: 500,
-                color: '#fff', marginBottom: '8px',
-              }}>{s.title}</div>
-              <div style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px', color: 'rgba(255,255,255,0.35)',
-                lineHeight: 1.6,
-              }}>{s.desc}</div>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>

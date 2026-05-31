@@ -1,0 +1,20 @@
+.text-block {
+  max-width: 900px;
+  font-family: var(--font-hero);
+  font-size: clamp(44px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.text-block p {
+  margin: 0;
+}
+
+.char {
+  will-change: transform;
+  display: inline-block;
+}

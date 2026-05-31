@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar'
+import LightRays from '../components/LightRays'
 import Hero from '../components/Hero'
-import MarqueeStrip from '../components/MarqueeStrip'
 import Services from '../components/Services'
 import HowItWorks from '../components/HowItWorks'
 import WhySSG from '../components/WhySSG'
@@ -9,13 +9,26 @@ import About from '../components/About'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import DomeGallery from '../components/DomeGallery'
+import Aurora from '../components/Aurora'
+import ScrollToTop from '../components/ScrollToTop'
 
 export default function Home() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
+      
+      {/* Global Fixed Background */}
+      <div style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none', background: '#050505' }}>
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.35 }}>
+          <Aurora colorStops={['#333333', '#111111', '#000000']} speed={0.4} amplitude={1.5} />
+        </div>
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.25 }}>
+          <LightRays raysOrigin="right" raysColor="#ffffff" raysSpeed={0.8} lightSpread={1.5} rayLength={2.0} followMouse={true} mouseInfluence={0.15} noiseAmount={0.1} />
+        </div>
+      </div>
+
       <Hero />
-      <MarqueeStrip />
       <Services />
       <HowItWorks />
       <WhySSG />

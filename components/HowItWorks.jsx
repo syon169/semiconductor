@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import ScrollStack, { ScrollStackItem } from './ScrollStack'
 const steps = [
   {
     num: '01',
@@ -27,10 +28,11 @@ export default function HowItWorks() {
   return (
     <section id="how" style={{
       padding: '120px 0',
-      background: '#050505',
+      background: 'transparent',
       borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative',
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '80px',
@@ -54,7 +56,7 @@ export default function HowItWorks() {
             <h2 style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(28px, 4vw, 48px)',
-              fontWeight: 300, lineHeight: 1.1,
+              fontWeight: 700, lineHeight: 1.1,
               color: '#fff', letterSpacing: '-0.01em',
             }}>
               How the<br />model works
@@ -71,42 +73,42 @@ export default function HowItWorks() {
           </motion.div>
 
           {/* Right — steps */}
-          <div>
-            {steps.map((s, i) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                key={i} style={{
-                display: 'grid', gridTemplateColumns: '48px 1fr',
-                gap: '24px', alignItems: 'start',
-                padding: '32px 0',
-                borderBottom: i < steps.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                transition: 'opacity 0.3s ease',
-              }}
-              onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-              onMouseLeave={e => e.currentTarget.style.opacity = '0.7'}
-              >
-                <div style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '11px', color: 'rgba(255,255,255,0.2)',
-                  letterSpacing: '0.1em', paddingTop: '4px',
-                }}>{s.num}</div>
-                <div>
-                  <h3 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '22px', fontWeight: 400,
-                    color: '#fff', marginBottom: '10px',
-                  }}>{s.title}</h3>
-                  <p style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '14px', lineHeight: 1.75,
-                    color: 'rgba(255,255,255,0.35)',
-                  }}>{s.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+          <div style={{ position: 'relative', width: '100%' }}>
+            <ScrollStack
+              useWindowScroll={true}
+              stackPosition="30%"
+              scaleEndPosition="20%"
+              itemDistance={40}
+              itemStackDistance={0}
+              baseScale={0.9}
+            >
+              {steps.map((s, i) => (
+                <ScrollStackItem key={i}>
+                  <div style={{
+                    display: 'grid', gridTemplateColumns: '48px 1fr',
+                    gap: '24px', alignItems: 'start',
+                  }}>
+                    <div style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '11px', color: 'rgba(255,255,255,0.2)',
+                      letterSpacing: '0.1em', paddingTop: '4px',
+                    }}>{s.num}</div>
+                    <div>
+                      <h3 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '28px', fontWeight: 700,
+                        color: '#fff', marginBottom: '16px',
+                      }}>{s.title}</h3>
+                      <p style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '16px', lineHeight: 1.75,
+                        color: 'rgba(255,255,255,0.45)',
+                      }}>{s.desc}</p>
+                    </div>
+                  </div>
+                </ScrollStackItem>
+              ))}
+            </ScrollStack>
           </div>
         </div>
       </div>

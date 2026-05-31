@@ -1,5 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
+import { GlowCard } from './ui/spotlight-card'
+
 const services = [
   {
     num: '01',
@@ -25,9 +27,11 @@ export default function Services() {
   return (
     <section id="services" style={{
       padding: '120px 0',
-      background: '#000',
+      background: 'transparent',
+      borderTop: '1px solid rgba(255,255,255,0.05)',
+      position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
 
         {/* Section header */}
         <motion.div 
@@ -47,7 +51,7 @@ export default function Services() {
           <h2 style={{
             fontFamily: 'var(--font-display)',
             fontSize: 'clamp(32px, 5vw, 56px)',
-            fontWeight: 300, lineHeight: 1.1,
+            fontWeight: 700, lineHeight: 1.1,
             color: '#fff', letterSpacing: '-0.01em',
           }}>
             Core consultancy<br />services
@@ -57,7 +61,7 @@ export default function Services() {
         {/* Cards */}
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1px', background: 'rgba(255,255,255,0.07)',
+          gap: '20px',
         }}>
           {services.map((s, i) => (
             <motion.div 
@@ -65,57 +69,59 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.15 }}
-              key={i} style={{
-              background: '#000',
-              padding: '40px 32px',
-              transition: 'background 0.3s ease',
-              cursor: 'default',
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = '#0a0a0a'}
-            onMouseLeave={e => e.currentTarget.style.background = '#000'}
+              key={i}
+              style={{ display: 'flex', height: '100%' }}
             >
-              <div style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '11px', color: 'rgba(255,255,255,0.2)',
-                letterSpacing: '0.15em', marginBottom: '24px',
-              }}>{s.num}</div>
+              <GlowCard
+                glowColor="white"
+                customSize={true}
+                className="w-full p-8 md:p-10 flex flex-col justify-between"
+              >
+                <div>
+                  <div style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '11px', color: 'rgba(255,255,255,0.25)',
+                    letterSpacing: '0.15em', marginBottom: '24px',
+                  }}>{s.num}</div>
 
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '24px', fontWeight: 400,
-                color: '#fff', lineHeight: 1.2,
-                marginBottom: '16px',
-              }}>{s.title}</h3>
+                  <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '24px', fontWeight: 700,
+                    color: '#fff', lineHeight: 1.2,
+                    marginBottom: '16px',
+                  }}>{s.title}</h3>
 
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '14px', lineHeight: 1.75,
-                color: 'rgba(255,255,255,0.35)',
-                marginBottom: '32px',
-              }}>{s.desc}</p>
+                  <p style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px', lineHeight: 1.75,
+                    color: 'rgba(255,255,255,0.4)',
+                    marginBottom: '32px',
+                  }}>{s.desc}</p>
+                </div>
 
-              <div style={{
-                borderTop: '1px solid rgba(255,255,255,0.07)',
-                paddingTop: '24px',
-              }}>
-                {s.items.map((item, j) => (
-                  <div key={j} style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '8px 0',
-                    borderBottom: '1px solid rgba(255,255,255,0.04)',
-                  }}>
-                    <div style={{
-                      width: '4px', height: '4px',
-                      border: '1px solid rgba(255,255,255,0.3)',
-                      flexShrink: 0,
-                    }} />
-                    <span style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '13px', color: 'rgba(255,255,255,0.4)',
-                    }}>{item}</span>
-                  </div>
-                ))}
-              </div>
+                <div style={{
+                  borderTop: '1px solid rgba(255,255,255,0.07)',
+                  paddingTop: '24px',
+                }}>
+                  {s.items.map((item, j) => (
+                    <div key={j} style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '8px 0',
+                      borderBottom: '1px solid rgba(255,255,255,0.04)',
+                    }}>
+                      <div style={{
+                        width: '4px', height: '4px',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        flexShrink: 0,
+                      }} />
+                      <span style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '13px', color: 'rgba(255,255,255,0.45)',
+                      }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>
@@ -123,7 +129,7 @@ export default function Services() {
 
       <style>{`
         @media (max-width: 768px) {
-          #services .cards-grid { grid-template-columns: 1fr !important; }
+          #services > div > div:last-of-type { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

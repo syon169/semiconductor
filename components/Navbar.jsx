@@ -35,17 +35,12 @@ export default function Navbar() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         height: '64px',
       }}>
-        {/* Logo */}
         <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
           <div style={{
-            width: '36px', height: '36px',
-            border: '1px solid rgba(255,255,255,0.15)',
+            height: '40px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: 'var(--font-display)',
-            fontSize: '15px', fontWeight: 600, color: '#fff',
-            letterSpacing: '0.05em',
           }}>
-            SSG
+            <img src="/logo.png" alt="SSG Logo" style={{ height: '100%', width: 'auto', objectFit: 'contain', filter: 'invert(1) contrast(2.5)', mixBlendMode: 'screen' }} />
           </div>
           <span style={{
             fontFamily: 'var(--font-body)',
